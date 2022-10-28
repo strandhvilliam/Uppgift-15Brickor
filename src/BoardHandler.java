@@ -27,25 +27,6 @@ public class BoardHandler { //innehåller metoder för board
         return board;
     }
 
-
-    /**
-     * Metoden hämtar nuvarande position för Tile med värdet 0
-     * @param board array met brickor med värden
-     * @return array med rad och kolumn position för nolla
-     */
-    public int[] getCurrentPosition(Tile[][] board) {
-        int row = 0, col = 0;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j].getNum() == 0) {
-                    row = i;
-                    col = j;
-                }
-            }
-        }
-        return new int[]{row, col};
-    }
-
     /**
      * Metoden byter nummer på två stycken brickor
      * Returnerar inget utan byter värdet på brickorna.
@@ -73,7 +54,7 @@ public class BoardHandler { //innehåller metoder för board
      */
     public List<Integer[]> getPossibleMoves(Tile[][] board) {
         List<Integer[]> possibleMoves = new ArrayList<>();
-        int[] emptyTilePosition = getCurrentPosition(board);
+        int[] emptyTilePosition = getPosOfNum(board, 0);
         int row = emptyTilePosition[0];
         int col = emptyTilePosition[1];
         if (row > 0) {
@@ -111,6 +92,23 @@ public class BoardHandler { //innehåller metoder för board
         return true;
     }
 
+    /**
+     * Metoden hämtar positionen av ett nummer i 2dArrayen
+     * @param board spelplanen som ska letas efter numret
+     * @param x numret som ska letas efter
+     * @return int[] array med positionen i form av {RAD, KOLUMN}
+     */
+    public int[] getPosOfNum(Tile[][] board, int x) {
+        int[] pos = new int[2];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j].getNum() == x) {
+                    pos = new int[]{i, j};
+                }
+            }
+        }
+        return pos;
+    }
 
     /**
      * Endast för tillfällig testning för utskrift i terminalen
