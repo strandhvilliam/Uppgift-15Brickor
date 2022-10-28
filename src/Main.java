@@ -1,9 +1,12 @@
 public class Main {
-    public static void main(String[] args) {
-        //hej hej eh je
 
-        System.out.println("Hello World!");
-        //testcomment
+    public Main(){
+        GUI g = new GUI();
+        g.createGUI();
+
+    }
+    public static void main(String[] args) {
+        Main m = new Main();
     }
 
 }
