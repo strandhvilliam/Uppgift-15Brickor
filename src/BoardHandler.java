@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class BoardHandler { //innehåller metoder för board
 
@@ -15,6 +12,7 @@ public class BoardHandler { //innehåller metoder för board
 
     /**
      * Skapar en ny 2d array med slumpmässiga nummer
+     * Nuvarande hårdkodad storlek
      * @return 2dArray spelplan med nummer 0 - 15
      */
     public Tile[][] createNewBoard() {
@@ -52,11 +50,47 @@ public class BoardHandler { //innehåller metoder för board
 
     /**
      * Metoden byter nummer på två stycken brickor
+     * Returnerar inget utan byter värdet på brickorna.
+     * Tekniskt sett flyttas då aldrig brickorna utan de ändrar
+     * bara värde
      * @param emptyTile den tommar rutan
      * @param targetTile rutan som man vill byta med
+     * @throws ArrayIndexOutOfBoundsException om man försöker flytta utanför
      */
     public void moveTile(Tile emptyTile, Tile targetTile) {
-        emptyTile.switchNum(targetTile);
+        try {
+            emptyTile.setNum(targetTile.getNum());
+            targetTile.setNum(0);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("not possible move");
+        }
+    }
+
+
+    /**
+     * Metoden returnerar en lista med positioner i 2dArrayen som går att flytta till
+     * Returnerar alltid minst 2 positioner i form av {RAD, KOLUMN} i en int[] array
+     * @param board spelplanen som ska letas efter möjliga flyttningar
+     * @return lista med Integer[] arrayobjekt med möjliga positioner att flytta
+     */
+    public List<Integer[]> getPossibleMoves(Tile[][] board) {
+        List<Integer[]> possibleMoves = new ArrayList<>();
+        int[] emptyTilePosition = getCurrentPosition(board);
+        int row = emptyTilePosition[0];
+        int col = emptyTilePosition[1];
+        if (row > 0) {
+            possibleMoves.add(new Integer[]{row - 1, col}); //kollar om man kan flytta uppåt
+        }
+        if (row < board.length - 1) {
+            possibleMoves.add(new Integer[]{row + 1, col}); //kollar om man kan flytta neråt
+        }
+        if (col > 0) {
+            possibleMoves.add(new Integer[]{row, col - 1}); //kollar om man kan flytta vänster
+        }
+        if (col < board[0].length - 1) {
+            possibleMoves.add(new Integer[]{row, col + 1}); //kollar om man kan flytta höger
+        }
+        return possibleMoves;
     }
 
 
@@ -79,7 +113,13 @@ public class BoardHandler { //innehåller metoder för board
         BoardHandler boardHandler = new BoardHandler();
         Tile[][] board = boardHandler.createNewBoard();
         boardHandler.printBoard(board);
-        System.out.println(Arrays.toString(boardHandler.getCurrentPosition(board)));
+
+        List<Integer[]> list = boardHandler.getPossibleMoves(board);
+
+        for (Integer[] pos : list) {
+            System.out.print(pos[0] + " " + pos[1]);
+            System.out.println();
+        }
     }
 
 
