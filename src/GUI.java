@@ -1,34 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame {
 
-    JPanel panel = new JPanel();
-    JButton button = new JButton();
+    protected JPanel panel = new JPanel();
+    protected JButton button = new JButton();
 
     List<JButton> buttonList = new ArrayList<>();
 
-    public void createGUI() {
+    public List<JButton> createGUI() {
         this.add(panel);
         this.setTitle("BRICK GAME");
         int num = 0;
         for (int i = 0; i < 16; i++) {
-
             JButton b = new JButton(String.valueOf(num));
             buttonList.add(b);
             panel.add(b);
+
             num++;
         }
-
-        for(JButton button : buttonList){
-            button.setBackground(Color.PINK);
-        }
-        button = buttonList.get(0);
-        button.setBackground(Color.WHITE);
 
         panel.setLayout(new GridLayout(4, 4));
         this.setSize(1000, 1000);
@@ -37,10 +29,22 @@ public class GUI extends JFrame implements ActionListener {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        return buttonList;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void mouseListener(List<JButton> list) {
+        for (JButton b: list) {
+
+        }
 
     }
+
+    public void setColor() {
+        for (JButton button : buttonList) {
+            button.setBackground(Color.PINK);
+        }
+        button = buttonList.get(0);
+        button.setBackground(Color.WHITE);
+    }
+
 }
