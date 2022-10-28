@@ -1,5 +1,8 @@
 public class Main {
 
+
+  private BoardHandler boardHandler = new BoardHandler(); //metoder för att hantera spelplanen
+
   public Main(){
 
 
