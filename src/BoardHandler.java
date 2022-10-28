@@ -15,7 +15,7 @@ public class BoardHandler { //innehåller metoder för board
 
     /**
      * Skapar en ny 2d array med slumpmässiga nummer
-     * @return
+     * @return 2dArray spelplan med nummer 0 - 15
      */
     public Tile[][] createNewBoard() {
         Tile[][] board = new Tile[4][4];
@@ -34,14 +34,14 @@ public class BoardHandler { //innehåller metoder för board
 
     /**
      * Metoden hämtar nuvarande position för Tile med värdet 0
-     * @param board
-     * @return
+     * @param board array met brickor med värden
+     * @return array med rad och kolumn position för nolla
      */
     public int[] getCurrentPosition(Tile[][] board) {
         int row = 0, col = 0;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j].getValue() == 0) {
+                if (board[i][j].getNum() == 0) {
                     row = i;
                     col = j;
                 }
@@ -50,6 +50,14 @@ public class BoardHandler { //innehåller metoder för board
         return new int[]{row, col};
     }
 
+    /**
+     * Metoden byter nummer på två stycken brickor
+     * @param emptyTile den tommar rutan
+     * @param targetTile rutan som man vill byta med
+     */
+    public void moveTile(Tile emptyTile, Tile targetTile) {
+        emptyTile.switchNum(targetTile);
+    }
 
 
     /**
@@ -59,7 +67,7 @@ public class BoardHandler { //innehåller metoder för board
     private void printBoard(Tile[][] board) {
         for (Tile[] tiles : board) {
             for (Tile tile : tiles) {
-                System.out.printf("%4d", tile.getValue());
+                System.out.printf("%4d", tile.getNum());
             }
             System.out.println();
         }
@@ -72,7 +80,6 @@ public class BoardHandler { //innehåller metoder för board
         Tile[][] board = boardHandler.createNewBoard();
         boardHandler.printBoard(board);
         System.out.println(Arrays.toString(boardHandler.getCurrentPosition(board)));
-
     }
 
 
