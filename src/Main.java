@@ -3,8 +3,11 @@ public class Main {
 
   private BoardHandler boardHandler = new BoardHandler(); //metoder för att hantera spelplanen
 
-  public Main(){
+  private Tile[][] board;
 
+  public Main(){
+      board = boardHandler.createNewBoard();
+      boardHandler.printBoard(board);
 
   }
 

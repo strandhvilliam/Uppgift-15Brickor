@@ -3,11 +3,9 @@ import java.util.*;
 public class BoardHandler { //innehåller metoder för board
 
 
-    private Random randomGenerator = new Random();
+    private final Random randomGenerator = new Random();
 
-    public BoardHandler() {
-
-    }
+    public BoardHandler() {}
 
 
     /**
@@ -16,8 +14,8 @@ public class BoardHandler { //innehåller metoder för board
      * @return 2dArray spelplan med nummer 0 - 15
      */
     public Tile[][] createNewBoard() {
+        List<Integer> numbers = Arrays.asList(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
         Tile[][] board = new Tile[4][4];
-        List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
         Collections.shuffle(numbers); //slumpar ordningen i listan
         int counter = 0; //för position i numbers listan
         for (int i = 0; i < board.length; i++) {
@@ -93,12 +91,32 @@ public class BoardHandler { //innehåller metoder för board
         return possibleMoves;
     }
 
+    /**
+     * Metoden kollar om nuvarande spelplan är färdig
+     * Jämför med en hårdkodad färdiga nummer
+     * Går att göra feature för att göra dynamisk
+     * @param board nuvarande spelplan
+     * @return true om spelplanen är färdig, annars false
+     */
+    public boolean compareToWinningBoard(Tile[][] board) {
+        int[][] winningNumbers = {{15, 14, 13, 12}, {11, 10, 9, 8}, {7, 6, 5, 4}, {3, 2, 1, 0}};
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j].getNum() != winningNumbers[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     /**
      * Endast för tillfällig testning för utskrift i terminalen
      * @param board
      */
-    private void printBoard(Tile[][] board) {
+    public void printBoard(Tile[][] board) {
         for (Tile[] tiles : board) {
             for (Tile tile : tiles) {
                 System.out.printf("%4d", tile.getNum());
@@ -111,18 +129,14 @@ public class BoardHandler { //innehåller metoder för board
 
     public static void main(String[] args) {
         BoardHandler boardHandler = new BoardHandler();
-        Tile[][] board = boardHandler.createNewBoard();
-        boardHandler.printBoard(board);
+        Tile[][] testBoard = {{new Tile(15), new Tile(14), new Tile(13), new Tile(12)},
+                {new Tile(11), new Tile(10), new Tile(9), new Tile(8)},
+                {new Tile(7), new Tile(6), new Tile(5), new Tile(4)},
+                {new Tile(3), new Tile(2), new Tile(1), new Tile(0)}};
 
-        List<Integer[]> list = boardHandler.getPossibleMoves(board);
+        System.out.println(boardHandler.compareToWinningBoard(testBoard));
 
-        for (Integer[] pos : list) {
-            System.out.print(pos[0] + " " + pos[1]);
-            System.out.println();
-        }
+
     }
-
-
-
 
 }
