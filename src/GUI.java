@@ -1,30 +1,48 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener {
+
 
     protected JPanel panel = new JPanel();
-    protected JButton button = new JButton();
+
+    protected JButton button = new JButton("New game!");
+
+    protected JPanel border = new JPanel();
+
 
     List<JButton> buttonList = new ArrayList<>();
 
-    public List<JButton> createGUI() {
-        this.add(panel);
+    public JButton[][] createGUI() {
         this.setTitle("BRICK GAME");
-        int num = 0;
-        for (int i = 0; i < 16; i++) {
-            JButton b = new JButton(String.valueOf(num));
-            buttonList.add(b);
-            panel.add(b);
 
-            num++;
+        Tile[][] board = boardHandler.createNewBoard(); //board med slumpade nummer
+
+        for (int i = 0; i < board.length; i++) {
+
+            for (int j = 0; j < board[i].length; j++) {
+                int num = board[i][j].getNum();
+                JButton b = new JButton(String.valueOf(num));
+                buttonArray[i][j] = b;
+                buttonArray[i][j].addActionListener(new MListener(this, board, buttonArray[i][j]));
+                if (num == 0) {
+                    buttonArray[i][j].setVisible(false);
+                }
+                panel.add(buttonArray[i][j]);
+            }
         }
 
         panel.setLayout(new GridLayout(4, 4));
+        border.setLayout(new BorderLayout());
+        border.add(panel, BorderLayout.CENTER);
+        border.add(button, BorderLayout.SOUTH);
+
+        this.add(border);
+        button.setSize(120, 30);
+        button.setLocation(0,0);
         this.setSize(1000, 1000);
-        // panel.setSize(1000,1000);                        panel.setsize verkar inte funka det går när jag skriver this. insteed men kanske inte bestpractice??
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -32,19 +50,50 @@ public class GUI extends JFrame {
         return buttonList;
     }
 
-    public void mouseListener(List<JButton> list) {
-        for (JButton b: list) {
-
+    public void updateBoardAfterMove(Tile[][] board) {
+        panel.removeAll();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                int num = board[i][j].getNum();
+                JButton b = new JButton(String.valueOf(num));
+                buttonArray[i][j] = b;
+                if (num == 0) {
+                    buttonArray[i][j].setEnabled(false);
+                }
+                panel.add(buttonArray[i][j]);
+            }
+        }
+    }
+        GUI(){
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button.setBackground(Color.GRAY);
+                if(e.getSource() == button){
+                    button.setText("New game created");
+                    createGUI();
+                }
+            }
+        });
         }
 
-    }
+
 
     public void setColor() {
-        for (JButton button : buttonList) {
-            button.setBackground(Color.PINK);
+        for (int i = 0; i < buttonArray.length; i++) {
+            for (int j = 0; j < buttonArray[i].length; j++) {
+                if(!buttonArray[i][j].getText().equals("0")) {
+                    buttonArray[i][j].setBackground(Color.PINK);
+                }
+            }
+
+
         }
-        button = buttonList.get(0);
-        button.setBackground(Color.WHITE);
     }
 
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }

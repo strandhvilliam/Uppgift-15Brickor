@@ -1,12 +1,10 @@
 import javax.swing.*;
-import java.util.List;
 
 public class Main {
 
     public Main() {
         GUI g = new GUI();
-        List<JButton> buttonList = g.createGUI();
-        g.mouseListener(buttonList);
+        JButton[][] buttonList = g.createGUI();
         g.setColor();
     }
 
