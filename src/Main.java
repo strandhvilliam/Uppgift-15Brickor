@@ -4,7 +4,8 @@ public class Main {
 
     public Main() {
         GUI g = new GUI();
-        JButton[][] buttonList = g.createGUI();
+        g.createGUI();
+        //JButton[][] buttonList = g.createGUI();
         g.setColor();
     }
 
