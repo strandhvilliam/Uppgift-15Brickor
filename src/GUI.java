@@ -33,10 +33,11 @@ public class GUI extends JFrame implements ActionListener {
         border.setLayout(new BorderLayout());
         border.add(panel, BorderLayout.CENTER);
         border.add(button, BorderLayout.SOUTH);
-
-        this.add(border);
+        button.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         button.setSize(120, 30);
         button.setLocation(0,0);
+        this.add(border);
+
         this.setSize(1000, 1000);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -74,7 +75,6 @@ public class GUI extends JFrame implements ActionListener {
                 panel.removeAll();
                 button.setBackground(Color.GRAY);
                 if(e.getSource() == button){
-                    button.setText("New game created");
                     createGUI();
                 }
             }
@@ -88,10 +88,9 @@ public class GUI extends JFrame implements ActionListener {
             for (int j = 0; j < buttonArray[i].length; j++) {
                 if(!buttonArray[i][j].getText().equals("0")) {
                     buttonArray[i][j].setBackground(Color.PINK);
+                    button.setFont(new Font("Times New Roman", Font.PLAIN, 20));
                 }
             }
-
-
         }
     }
 
