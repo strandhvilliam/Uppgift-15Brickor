@@ -16,8 +16,6 @@ public class GUI extends JFrame implements ActionListener {
 
     private Tile[][] board;
 
-    //List<JButton> buttonList = new ArrayList<>();
-
     public JButton[][] buttonArray = new JButton[4][4];
 
     //public JButton[][] createGUI() {
@@ -93,7 +91,6 @@ public class GUI extends JFrame implements ActionListener {
             }
         }
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
