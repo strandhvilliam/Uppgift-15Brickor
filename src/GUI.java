@@ -37,7 +37,6 @@ public class GUI extends JFrame implements ActionListener {
         border.setLayout(new BorderLayout());
         border.add(panel, BorderLayout.CENTER);
         border.add(button, BorderLayout.SOUTH);
-        button.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         button.setSize(120, 30);
         button.setLocation(0,0);
         this.add(border);
@@ -60,6 +59,7 @@ public class GUI extends JFrame implements ActionListener {
                 b.setEnabled(false);
                 buttonArray[i][j] = b;
                 panel.add(buttonArray[i][j]);
+                b.setFont(new Font("Times New Roman", Font.PLAIN, 20));
             }
         }
         setColor();
