@@ -4,8 +4,13 @@ public class BoardHandler { //innehåller metoder för board
 
 
     private final Random randomGenerator = new Random();
+    private final int sideLength;
+    private final int boardSize;
 
-    public BoardHandler() {}
+    public BoardHandler(int sideLength) {
+        this.sideLength = sideLength;
+        this.boardSize = (int)Math.pow(sideLength, 2);
+    }
 
 
     /**
@@ -14,8 +19,8 @@ public class BoardHandler { //innehåller metoder för board
      * @return 2dArray spelplan med nummer 0 - 15
      */
     public Tile[][] createNewBoard() {
-        List<Integer> numbers = Arrays.asList(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
-        Tile[][] board = new Tile[4][4];
+        List<Integer> numbers = getNumbers();
+        Tile[][] board = new Tile[sideLength][sideLength];
         Collections.shuffle(numbers); //slumpar ordningen i listan
         int counter = 0; //för position i numbers listan
         for (int i = 0; i < board.length; i++) {
@@ -25,6 +30,19 @@ public class BoardHandler { //innehåller metoder för board
             }
         }
         return board;
+    }
+
+    /**
+     * Metoden hämtar alla nummer som ska vara med i spelet
+     * @return lista med alla nummer
+     */
+    public List<Integer> getNumbers() {
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(0);
+        for (int i = boardSize-1; i > 0; i--) {
+            numbers.add(i);
+        }
+        return numbers;
     }
 
     /**
@@ -80,7 +98,15 @@ public class BoardHandler { //innehåller metoder för board
      * @return true om spelplanen är färdig, annars false
      */
     public boolean compareToWinningBoard(Tile[][] board) {
-        int[][] winningNumbers = {{15, 14, 13, 12}, {11, 10, 9, 8}, {7, 6, 5, 4}, {3, 2, 1, 0}};
+        int[][] winningNumbers = new int[sideLength][sideLength];
+        List<Integer> winningNumbersList = getNumbers();
+
+        for (int i = 0; i < winningNumbers.length; i++) {
+            for (int j = 0; j < winningNumbers[i].length; j++) {
+                winningNumbers[i][j] = winningNumbersList.get(0);
+                winningNumbersList.remove(0);
+            }
+        }
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -122,19 +148,6 @@ public class BoardHandler { //innehåller metoder för board
             System.out.println();
         }
         System.out.println();
-    }
-
-
-    public static void main(String[] args) {
-        BoardHandler boardHandler = new BoardHandler();
-        Tile[][] testBoard = {{new Tile(15), new Tile(14), new Tile(13), new Tile(12)},
-                {new Tile(11), new Tile(10), new Tile(9), new Tile(8)},
-                {new Tile(7), new Tile(6), new Tile(5), new Tile(4)},
-                {new Tile(3), new Tile(2), new Tile(1), new Tile(0)}};
-
-        System.out.println(boardHandler.compareToWinningBoard(testBoard));
-
-
     }
 
 }

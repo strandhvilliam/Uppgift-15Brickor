@@ -4,7 +4,8 @@ public class Main {
 
     public Main() {
         GUI g = new GUI();
-        g.createGUI();
+        int side = Integer.parseInt(JOptionPane.showInputDialog("Enter the side of the board:"));
+        g.createGUI(side);
         g.setColor();
     }
 

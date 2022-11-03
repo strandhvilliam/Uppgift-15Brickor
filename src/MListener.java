@@ -11,12 +11,13 @@ public class MListener implements MouseListener, ActionListener {
     private Tile[][] board;
     private GUI gui;
 
-    private BoardHandler boardHandler = new BoardHandler();
+    private BoardHandler boardHandler;
 
     public MListener(GUI gui, Tile[][] board, JButton jb) {
         this.gui = gui;
         this.board = board;
         this.jb = jb;
+        boardHandler = new BoardHandler(board.length);
     }
 
 

@@ -12,21 +12,25 @@ public class GUI extends JFrame implements ActionListener {
 
     protected JPanel border = new JPanel();
 
-    BoardHandler boardHandler = new BoardHandler();
+    private BoardHandler boardHandler;
+
+    private int sideLength;
 
     private Tile[][] board;
 
     //List<JButton> buttonList = new ArrayList<>();
 
-    public JButton[][] buttonArray = new JButton[4][4];
+    public JButton[][] buttonArray;
 
     //public JButton[][] createGUI() {
-    public void createGUI() {
+    public void createGUI(int side) {
         this.setTitle("BRICK GAME");
-
+        this.sideLength = side;
+        boardHandler = new BoardHandler(sideLength);
+        buttonArray = new JButton[sideLength][sideLength];
         board = boardHandler.createNewBoard(); //board med slumpade nummer
 
-        panel.setLayout(new GridLayout(4, 4));
+        panel.setLayout(new GridLayout(sideLength, sideLength));
 
         updateBoard();
 
@@ -66,6 +70,10 @@ public class GUI extends JFrame implements ActionListener {
         }
         int[] zeroPos = boardHandler.getPosOfNum(board,0);
         buttonArray[zeroPos[0]][zeroPos[1]].setVisible(false);
+
+        if (boardHandler.compareToWinningBoard(board)) {
+            JOptionPane.showMessageDialog(null, "You won!");
+        }
     }
 
         GUI(){
@@ -75,7 +83,7 @@ public class GUI extends JFrame implements ActionListener {
                 panel.removeAll();
                 button.setBackground(Color.GRAY);
                 if(e.getSource() == button){
-                    createGUI();
+                    createGUI(sideLength);
                 }
             }
         });
