@@ -35,7 +35,7 @@ public class GUI extends JFrame {
         border.setLayout(new BorderLayout());
         border.add(buttonPanel, BorderLayout.SOUTH);
         border.add(panel, BorderLayout.CENTER);
-        border.add(button, BorderLayout.SOUTH);
+        buttonPanel.add(button);
         button.setSize(120, 30);
         button.setLocation(0, 0);
         this.add(border);
