@@ -23,22 +23,22 @@ public class MListener implements MouseListener, ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        jb.setForeground(Color.blue);
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        jb.setForeground(Color.cyan);
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        jb.setForeground(Color.yellow);
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        jb.setForeground(Color.black);
+
     }
 
     @Override
