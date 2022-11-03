@@ -68,7 +68,7 @@ public class GUI extends JFrame {
             buttonArray[number[0]][number[1]].setEnabled(true);
         }
         int[] zeroPos = boardHandler.getPosOfNum(board, 0);
-        buttonArray[zeroPos[0]][zeroPos[1]].setVisible(false);
+        buttonArray[zeroPos[0]][zeroPos[1]].setVisible(false); //gömmer 0 knappen
 
         if (boardHandler.compareToWinningBoard(board)) {
             JOptionPane.showMessageDialog(null, "You won!");
@@ -81,6 +81,7 @@ public class GUI extends JFrame {
             button.setBackground(Color.GRAY);
             if (e.getSource() == button) {
                 createGUI(sideLength);
+                panel.repaint();
             }
         });
     }
