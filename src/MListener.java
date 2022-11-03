@@ -53,7 +53,7 @@ public class MListener implements MouseListener, ActionListener {
         int[] targetPos = boardHandler.getPosOfNum(board, num);
         int[] emptyPos = boardHandler.getPosOfNum(board, 0);
         boardHandler.moveTile(board[emptyPos[0]][emptyPos[1]], board[targetPos[0]][targetPos[1]]);
-        int[] zeroPos = boardHandler.getPosOfNum(board,0);
+        int[] zeroPos = boardHandler.getPosOfNum(board, 0);
         gui.buttonArray[zeroPos[0]][zeroPos[1]].setVisible(false);
         gui.updateBoard();
 

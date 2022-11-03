@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame {
 
     protected JPanel panel = new JPanel();
 
@@ -12,17 +12,16 @@ public class GUI extends JFrame implements ActionListener {
 
     protected JPanel border = new JPanel();
 
+    protected JPanel buttonPanel = new JPanel();
     private BoardHandler boardHandler;
 
     private int sideLength;
 
     private Tile[][] board;
 
-    //List<JButton> buttonList = new ArrayList<>();
 
     public JButton[][] buttonArray;
 
-    //public JButton[][] createGUI() {
     public void createGUI(int side) {
         this.setTitle("BRICK GAME");
         this.sideLength = side;
@@ -33,20 +32,20 @@ public class GUI extends JFrame implements ActionListener {
         panel.setLayout(new GridLayout(sideLength, sideLength));
 
         updateBoard();
-
         border.setLayout(new BorderLayout());
+        border.add(buttonPanel, BorderLayout.SOUTH);
         border.add(panel, BorderLayout.CENTER);
         border.add(button, BorderLayout.SOUTH);
         button.setSize(120, 30);
-        button.setLocation(0,0);
+        button.setLocation(0, 0);
         this.add(border);
+
 
         this.setSize(1000, 1000);
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //return buttonArray;
     }
 
     public void updateBoard() {
@@ -68,7 +67,7 @@ public class GUI extends JFrame implements ActionListener {
         for (Integer[] number : list) {
             buttonArray[number[0]][number[1]].setEnabled(true);
         }
-        int[] zeroPos = boardHandler.getPosOfNum(board,0);
+        int[] zeroPos = boardHandler.getPosOfNum(board, 0);
         buttonArray[zeroPos[0]][zeroPos[1]].setVisible(false);
 
         if (boardHandler.compareToWinningBoard(board)) {
@@ -76,35 +75,27 @@ public class GUI extends JFrame implements ActionListener {
         }
     }
 
-        GUI(){
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panel.removeAll();
-                button.setBackground(Color.GRAY);
-                if(e.getSource() == button){
-                    createGUI(sideLength);
-                }
+    GUI() {
+        button.addActionListener(e -> {
+            panel.removeAll();
+            button.setBackground(Color.GRAY);
+            if (e.getSource() == button) {
+                createGUI(sideLength);
             }
         });
-        }
-
+    }
 
 
     public void setColor() {
         for (int i = 0; i < buttonArray.length; i++) {
             for (int j = 0; j < buttonArray[i].length; j++) {
-                if(!buttonArray[i][j].getText().equals("0")) {
+                if (!buttonArray[i][j].getText().equals("0")) {
                     buttonArray[i][j].setBackground(Color.PINK);
                     button.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+                    button.setBackground(Color.GREEN);
                 }
             }
         }
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }
