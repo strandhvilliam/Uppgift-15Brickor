@@ -7,8 +7,7 @@ public class Main {
         int side = Integer.parseInt(JOptionPane.showInputDialog("Enter the side of the board:"));
         g.createGUI(side);
         g.setColor();
-    }
-
+    }//test
     public static void main(String[] args) {
         Main m = new Main();
     }
