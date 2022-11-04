@@ -2,8 +2,6 @@ import java.util.*;
 
 public class BoardHandler { //innehåller metoder för board
 
-
-    private final Random randomGenerator = new Random();
     private final int sideLength;
     private final int boardSize;
 
@@ -15,8 +13,7 @@ public class BoardHandler { //innehåller metoder för board
 
     /**
      * Skapar en ny 2d array med slumpmässiga nummer
-     * Nuvarande hårdkodad storlek
-     * @return 2dArray spelplan med nummer 0 - 15
+     * @return 2dArray spelplan
      */
     public Tile[][] createNewBoard() {
         List<Integer> numbers = getNumbers();
@@ -134,20 +131,6 @@ public class BoardHandler { //innehåller metoder för board
             }
         }
         return pos;
-    }
-
-    /**
-     * Endast för tillfällig testning för utskrift i terminalen
-     * @param board
-     */
-    public void printBoard(Tile[][] board) {
-        for (Tile[] tiles : board) {
-            for (Tile tile : tiles) {
-                System.out.printf("%4d", tile.getNum());
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
 }
